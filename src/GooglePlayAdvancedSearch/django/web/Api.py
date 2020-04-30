@@ -92,7 +92,7 @@ def search(request: django.http.HttpRequest):
 	if not request.COOKIES.get('_gaload') and limitRate(getClientIP(request)):
 		return JsonResponse({'error': 'Rate limit reached. Wait 60 seconds.'})
 
-	keyword = request.GET['q']
+	keyword = request.GET['q'].strip()
 	with connection.cursor() as cursor:
 		try:
 			logSearch(cursor, keyword, request)
